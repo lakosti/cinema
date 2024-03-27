@@ -30,6 +30,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
+      {movieDetails !== null && <p>{movieDetails.title}</p>}
       {/* <div>
         <h3>Additional information</h3>
         <ul>
