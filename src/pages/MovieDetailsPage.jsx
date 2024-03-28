@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Route, Routes, useParams } from "react-router-dom";
 import { requestProductById } from "../services/api";
+import MovieCast from "../components/MovieCast/MovieCast";
+import MovieReviews from "../components/MovieReviews/MovieReviews";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -16,9 +18,7 @@ const MovieDetailsPage = () => {
         setError(false);
 
         const data = await requestProductById(movieId);
-
-        console.log(data.results);
-        setMovieDetails(data.results);
+        setMovieDetails(data);
       } catch (err) {
         setError(true);
       } finally {
@@ -31,13 +31,16 @@ const MovieDetailsPage = () => {
   return (
     <div>
       {movieDetails !== null && <p>{movieDetails.title}</p>}
-      {/* <div>
+      <div>
         <h3>Additional information</h3>
-        <ul>
-          <Link to={`/movies/${movieId}/cast`}>Cast</Link>
-          <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
-        </ul>
-      </div> */}
+        <Link to="cast">Cast</Link>
+        <Link to="reviews">Rewiews</Link>
+
+        <Routes>
+          <Route path="cast" element={<MovieCast />} />
+          <Route path="reviews" element={<MovieReviews />} />
+        </Routes>
+      </div>
     </div>
   );
 };

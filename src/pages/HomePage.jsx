@@ -16,7 +16,6 @@ const HomePage = () => {
         setError(false);
 
         const data = await requestMovies();
-        console.log(data.results);
         setMovies(data.results);
       } catch (err) {
         setError(true);
