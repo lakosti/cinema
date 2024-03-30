@@ -28,15 +28,19 @@ const MovieCast = () => {
 
   return (
     <div>
-      <ul>
-        {cast.map((item) => (
-          <li key={item.id}>
-            <img src={`https://image.tmdb.org/t/p/w200${item.profile_path}`} alt="" />
-            <p>Name: {item.name}</p>
-            <p>Character : {item.character}</p>
-          </li>
-        ))}
-      </ul>
+      {cast.length === 0 ? (
+        <p>No cast information available</p>
+      ) : (
+        <ul>
+          {cast.map((item) => (
+            <li key={item.id}>
+              <img src={`https://image.tmdb.org/t/p/w200${item.profile_path}`} alt="" />
+              <p>Name: {item.name}</p>
+              <p>Character: {item.character === "" ? "Not found info" : item.character}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

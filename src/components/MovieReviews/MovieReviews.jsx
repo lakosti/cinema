@@ -28,7 +28,7 @@ const MovieReviews = () => {
   return (
     <>
       {reviews.length === 0 ? (
-        <p>Not found</p>
+        <p>No reviews found</p>
       ) : (
         <ul>
           {reviews.map((item) => (
