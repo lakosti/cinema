@@ -3,6 +3,10 @@ import { Link, Route, Routes, useParams } from "react-router-dom";
 import { requestProductById } from "../services/api";
 import MovieCast from "../components/MovieCast/MovieCast";
 import MovieReviews from "../components/MovieReviews/MovieReviews";
+import { Instagram } from "react-content-loader";
+import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
+
+const MyInstagramLoader = () => <Instagram />;
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -30,7 +34,20 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
-      {movieDetails !== null && <p>{movieDetails.title}</p>}
+      {loading && <MyInstagramLoader />}
+      {error && <ErrorMessage />}
+      {movieDetails !== null && (
+        <div>
+          <p>{movieDetails.title}</p>
+          <img
+            src={`https://image.tmdb.org/t/p/w300${movieDetails.poster_path}`}
+            alt={movieDetails.title}
+          />
+          <p>Rating: {movieDetails.vote_average}</p>
+          <p>Date: {movieDetails.release_date}</p>
+          <p>{movieDetails.overview}</p>
+        </div>
+      )}
       <div>
         <h3>Additional information</h3>
         <Link to="cast">Cast</Link>

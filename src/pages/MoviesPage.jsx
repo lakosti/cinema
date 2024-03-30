@@ -20,7 +20,6 @@ const MoviesPage = () => {
         setError(false);
 
         const data = await requestMovieByQuery(searchQuery);
-        console.log(data.results);
         setMovies(data.results);
       } catch (err) {
         console.log(err);

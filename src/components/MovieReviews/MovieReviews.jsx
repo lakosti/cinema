@@ -14,7 +14,6 @@ const MovieReviews = () => {
         const data = await requestReviewsById(movieId);
         setReviews(data.results);
         setLoading(false);
-        console.log(data.results);
       } catch (err) {
         console.log(err);
       }
@@ -28,7 +27,7 @@ const MovieReviews = () => {
   return (
     <>
       {reviews.length === 0 ? (
-        <p>No reviews found</p>
+        <p>No reviews found. Add your first review!</p>
       ) : (
         <ul>
           {reviews.map((item) => (
