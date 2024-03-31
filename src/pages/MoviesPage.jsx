@@ -1,18 +1,18 @@
 import { Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 import { requestMovieByQuery } from "../services/api";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import MovieList from "../components/MovieList/MovieList";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  // const [searchQuery, SetSearchQuery] = useState("");
   const [searchParams, SetSearchParams] = useSearchParams();
   const searchQuery = searchParams.get("query");
 
   useEffect(() => {
-    if (searchQuery === null) return;
+    if (searchQuery === "" || searchQuery === null) return;
 
     async function fetchDataByQuery() {
       try {
@@ -20,6 +20,10 @@ const MoviesPage = () => {
         setError(false);
 
         const data = await requestMovieByQuery(searchQuery);
+        if (data.results.length === 0) {
+          alert("No results found");
+          return;
+        }
         setMovies(data.results);
       } catch (err) {
         console.log(err);
@@ -32,15 +36,14 @@ const MoviesPage = () => {
     fetchDataByQuery();
   }, [searchQuery]);
 
-  const handleSearchFilm = (values, actions) => {
+  const handleSearchFilm = (values) => {
     setMovies([]);
     SetSearchParams({ query: values.query });
-    actions.resetForm();
   };
 
   return (
     <>
-      <Formik initialValues={{ query: "" }} onSubmit={handleSearchFilm}>
+      <Formik initialValues={{ query: searchQuery ?? "" }} onSubmit={handleSearchFilm}>
         <Form>
           <Field placeholder="Search film" type="text" name="query" />
           <button type="submit">Seacrh</button>
@@ -48,13 +51,7 @@ const MoviesPage = () => {
       </Formik>
       {loading && <p>Loading, please wait...</p>}
       {error && <p>Oops, something went wrong!</p>}
-      <ul>
-        {movies.map((item) => (
-          <li key={item.id}>
-            <Link to={`/movies/${item.id}`}>{item.original_title}</Link>
-          </li>
-        ))}
-      </ul>
+      <MovieList movies={movies} />
     </>
   );
 };

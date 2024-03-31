@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, Route, Routes, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { requestProductById } from "../services/api";
 import MovieCast from "../components/MovieCast/MovieCast";
 import MovieReviews from "../components/MovieReviews/MovieReviews";
@@ -10,6 +10,9 @@ const MyInstagramLoader = () => <Instagram />;
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
+
+  const location = useLocation();
+  const backLinkRef = useRef(location.state ?? "/");
 
   const [movieDetails, setMovieDetails] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -36,6 +39,7 @@ const MovieDetailsPage = () => {
     <div>
       {loading && <MyInstagramLoader />}
       {error && <ErrorMessage />}
+      <Link to={backLinkRef.current}>Go back</Link>
       {movieDetails !== null && (
         <div>
           <p>{movieDetails.title}</p>
