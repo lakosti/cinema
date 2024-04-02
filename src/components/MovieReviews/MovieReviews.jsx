@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { requestReviewsById } from "../../services/api";
 
+import css from "./MovieReviews.module.css";
 const MovieReviews = () => {
   const { movieId } = useParams();
 
@@ -31,8 +32,8 @@ const MovieReviews = () => {
       ) : (
         <ul>
           {reviews.map((item) => (
-            <li key={item.id}>
-              <p>{item.author}</p>
+            <li className={css.reviewItem} key={item.id}>
+              <p className={css.reviewAuthor}>{item.author}</p>
               <p>{item.content}</p>
             </li>
           ))}

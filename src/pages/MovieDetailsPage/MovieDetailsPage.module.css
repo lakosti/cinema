@@ -1,0 +1,46 @@
+.detailWrap {
+  display: flex;
+  gap: 10px;
+}
+
+.imgWrap {
+  position: relative;
+}
+.detailTitle {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 34px;
+}
+.detailRating {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: black;
+  background-color: white;
+  padding: 5px;
+}
+.detailDesc {
+  border-radius: 10px;
+  width: 400px;
+}
+.additionalInfo {
+  display: block;
+  margin-top: 20px;
+}
+.cast {
+  padding: 10px;
+  margin-right: 10px;
+}
+.cast:hover,
+.review:hover {
+  text-decoration: underline;
+}
+.review {
+  margin-top: 20px;
+}

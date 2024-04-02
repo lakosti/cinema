@@ -1,8 +1,9 @@
 import { Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
-import { requestMovieByQuery } from "../services/api";
+import { requestMovieByQuery } from "../../services/api";
 import { useSearchParams } from "react-router-dom";
-import MovieList from "../components/MovieList/MovieList";
+import MovieList from "../../components/MovieList/MovieList";
+import css from "./MoviesPage.module.css";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
@@ -44,13 +45,15 @@ const MoviesPage = () => {
   return (
     <>
       <Formik initialValues={{ query: searchQuery ?? "" }} onSubmit={handleSearchFilm}>
-        <Form>
-          <Field placeholder="Search film" type="text" name="query" />
-          <button type="submit">Seacrh</button>
+        <Form className={css.form}>
+          <Field className={css.input} placeholder="Search film" type="text" name="query" />
+          <button className={css.button} type="submit">
+            Seacrh
+          </button>
         </Form>
       </Formik>
-      {loading && <p>Loading, please wait...</p>}
-      {error && <p>Oops, something went wrong!</p>}
+      {loading && <p className={css.loadingText}>Loading, please wait...</p>}
+      {error && <p className={css.errorText}>Oops, something went wrong!</p>}
       <MovieList movies={movies} />
     </>
   );

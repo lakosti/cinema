@@ -1,0 +1,7 @@
+.reviewItem {
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+.reviewAuthor {
+  background-color: rgb(137, 164, 155);
+}
