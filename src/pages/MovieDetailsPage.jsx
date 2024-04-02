@@ -1,10 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { Link, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { requestProductById } from "../services/api";
-import MovieCast from "../components/MovieCast/MovieCast";
-import MovieReviews from "../components/MovieReviews/MovieReviews";
 import { Instagram } from "react-content-loader";
+
 import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
+import Loader from "../components/Loader/Loader";
+
+const MovieCast = lazy(() => import("../components/MovieCast/MovieCast"));
+const MovieReviews = lazy(() => import("../components/MovieReviews/MovieReviews"));
 
 const MyInstagramLoader = () => <Instagram />;
 
@@ -56,30 +59,15 @@ const MovieDetailsPage = () => {
         <h3>Additional information</h3>
         <Link to="cast">Cast</Link>
         <Link to="reviews">Rewiews</Link>
-
-        <Routes>
-          <Route path="cast" element={<MovieCast />} />
-          <Route path="reviews" element={<MovieReviews />} />
-        </Routes>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="cast" element={<MovieCast />} />
+            <Route path="reviews" element={<MovieReviews />} />
+          </Routes>
+        </Suspense>
       </div>
     </div>
   );
 };
 
 export default MovieDetailsPage;
-
-// adult: false;
-// backdrop_path: "/fFdlyeC8qPROUqM8ydR9INXAG17.jpg";
-// genre_ids: (2)[(28, 53)];
-// id: 359410;
-// media_type: "movie";
-// original_language: "en";
-// original_title: "Road House";
-// overview: "Ex-UFC fighter Dalton takes a job as a bouncer at a Florida Keys roadhouse, only to discover that this paradise is not all it seems.";
-// popularity: 933.68;
-// poster_path: "/bXi6IQiQDHD00JFio5ZSZOeRSBh.jpg";
-// release_date: "2024-03-08";
-// title: "Road House";
-// video: false;
-// vote_average: 7.27;
-// vote_count: 572;
