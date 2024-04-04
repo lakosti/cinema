@@ -1,24 +1,12 @@
-import { NavLink } from "react-router-dom";
-import css from "../App/App.module.css";
-import clsx from "clsx";
+import { lazy } from "react";
 
-const getNavLinkClassNames = ({ isActive }) =>
-  clsx(css.headerLink, {
-    [css.active]: isActive,
-  });
+const Navigation = lazy(() => import("../Navigation/Navigation"));
 
 const Layout = ({ children }) => {
   return (
     <div>
-      <header className={css.header}>
-        <NavLink className={getNavLinkClassNames} to="/">
-          Home
-        </NavLink>
-        <NavLink className={getNavLinkClassNames} to="/movies">
-          Movies
-        </NavLink>
-      </header>
-      <main>{children}</main>
+      <Navigation />
+      <main> {children}</main>
     </div>
   );
 };
