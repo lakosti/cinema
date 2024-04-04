@@ -6,6 +6,8 @@
   gap: 5px;
 }
 .input {
+  border: none;
+  border-bottom: 1px solid black;
   width: 220px;
   padding: 10px;
 }
